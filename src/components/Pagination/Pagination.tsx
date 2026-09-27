@@ -3,18 +3,18 @@ import cn from 'classnames';
 
 type Props = {
   total: number;
-  itemsPerPage: number;
+  perPage: number;
   currentPage: number;
   onPageChange: (page: number) => void;
 };
 
 export const Pagination: React.FC<Props> = ({
   total,
-  itemsPerPage,
+  perPage,
   currentPage,
   onPageChange,
 }) => {
-  const pagesCount = Math.ceil(total / itemsPerPage);
+  const pagesCount = Math.ceil(total / perPage);
   const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
 
   return (
@@ -48,7 +48,9 @@ export const Pagination: React.FC<Props> = ({
               href={`#${page}`}
               onClick={event => {
                 event.preventDefault();
-                onPageChange(page);
+                if (page !== currentPage) {
+                  onPageChange(page);
+                }
               }}
             >
               {page}
